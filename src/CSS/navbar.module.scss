@@ -1,0 +1,30 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ef1514;
+    padding: 8px 50px;
+    > img {
+        width: 150px;
+    }
+    > label {
+        display: flex;
+        align-items: center;
+        color: #222224;
+        background-color: #f0f0f0;
+        padding: 7px;
+        border-radius: 20px;
+        width: 30%;
+        gap: 10px;
+        img {
+            width: 20px;
+        }
+        input {
+            outline: none;
+            background-color: transparent;
+            border: none;
+            font-size: larger;
+            width: 100%;
+        }
+    }
+}
