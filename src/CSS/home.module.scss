@@ -1,3 +1,47 @@
-.head{
-    color: red;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 80%;
+    margin: auto;
+    row-gap: 25px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    > section {
+        height: 270px;
+        color: #313131;
+        background-color: white;
+        width: 85%;
+        margin: auto;
+        padding: 30px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+        transition: all 0.3s ease-in-out;
+        img {
+            width: 80%;
+            height: 70%;
+            object-fit: contain;
+            margin: auto;
+            display: block;
+        }
+        > p {
+            color: #919191;
+            font-weight: bolder;
+        }
+        > div {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+            p {
+                padding: 2px 8px;
+                border-radius: 3px;
+                color: white;
+            }
+        }
+    }
+    > section:hover {
+        box-shadow: rgba(0, 0, 0, 0.22) 0px 19px 43px;
+        transform: translate3d(0px, -1px, 0px);
+    }
 }
