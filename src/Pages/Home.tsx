@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
 import style from '../CSS/home.module.scss'
 import Loader from '../Components/Loader'
 import { useQuery, gql } from '@apollo/client';
-const GET_POKEMON = gql`
+export default function Home() {
+  const navigate = useNavigate()
+  const { loading, error, data } = useQuery(gql`
   {
     pokemons(first:200) {
       id
@@ -11,16 +14,14 @@ const GET_POKEMON = gql`
       types
     }
   }
-`;
-export default function Home() {
-  const { loading, error, data } = useQuery(GET_POKEMON);
+`);
   if (loading) return <Loader />;
   if (error) return <p>Error: {error.message}</p>;
   return (
     <div style={{ backgroundColor: '#f0f0f0' }}>
       <div className={style.grid}>
         {data.pokemons.map((pokemon: any) => (
-          <section key={pokemon.id}>
+          <section key={pokemon.id} onClick={() => navigate(`/${pokemon.name}/${pokemon.id}`)}>
             <img src={pokemon.image} alt={pokemon.name} />
             <p>#{pokemon.number}</p>
             <h1>{pokemon.name}</h1>
