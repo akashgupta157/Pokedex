@@ -3,10 +3,10 @@ const express = require("express");
 const app = express();
 const connection = require("./db");
 const cors = require("cors");
-import pokemonRoutes from "./routes/pokemon.route";
+const pokemonRoute = require("./routes/pokemon.route");
 app.use(express.json());
 app.use(cors());
-app.use("/pokemon", pokemonRoutes);
+app.use("/pokemon", pokemonRoute);
 app.listen(3000, async () => {
   try {
     await connection;

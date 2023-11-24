@@ -1,17 +1,17 @@
-import express, { Request, Response } from "express";
-import Pokemon from "../models/pokemon.model";
-const router = express.Router();
-router.get("/", async (req: Request, res: Response) => {
+const express1 = require("express");
+const pokemonModel = require("../models/pokemon.model");
+const router = express1.Router();
+router.get("/", async (req: any, res: any) => {
   try {
-    const pokemons = await Pokemon.find();
-    res.json(pokemons);
+    const pokemon = await pokemonModel.find();
+    res.json(pokemon);
   } catch (error) {
     res.status(500).json({ error });
   }
 });
-router.get("/:id", async (req: Request, res: Response) => {
+router.get("/:number", async (req: any, res: any) => {
   try {
-    const pokemon = await Pokemon.findById(req.params.id);
+    const pokemon = await pokemonModel.findOne({ number: req.params.number });
     if (pokemon) {
       res.json(pokemon);
     } else {
@@ -21,14 +21,20 @@ router.get("/:id", async (req: Request, res: Response) => {
     res.status(500).json({ error });
   }
 });
-router.post("/", async (req: Request, res: Response) => {
+router.post("/", async (req: any, res: any) => {
   try {
-    const newPokemon = new Pokemon(req.body);
-    const savedPokemon = await newPokemon.save();
-    res.json(savedPokemon);
+    const lastAddedPokemon = await pokemonModel
+      .findOne()
+      .sort({ createdAt: -1 });
+    const number = lastAddedPokemon ? lastAddedPokemon.number + 1 : 1;
+    req.body.number = number;
+    const newPokemon = new pokemonModel(req.body);
+    await newPokemon.save();
+    res.json({
+      msg: "Pokemon added",
+    });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(404).json({ error });
   }
 });
-
-export default router;
+module.exports = router;
