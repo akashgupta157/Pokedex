@@ -1,6 +1,6 @@
 .darkMode {
     background-color: #313131;
-    min-height: 100vh;
+    min-height: 88vh;
     .grid > section {
         background-color: #343434;
         > h1 {
@@ -10,7 +10,7 @@
 }
 .lightMode {
     background-color: #f0f0f0;
-    min-height: 100vh;
+    min-height: 88vh;
 }
 .grid {
     display: grid;
