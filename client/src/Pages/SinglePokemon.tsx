@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import style from '../CSS/singlepokemon.module.scss';
+// import style from '../CSS/singlepokemon.module.scss';
 import Loader from '../Components/Loader';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -12,6 +12,7 @@ export default function SinglePokemon() {
     await axios.get(`${url}/pokemon/${id}`).then(res => setPokemon(res.data))
     setLoading(false)
   }
+  console.log(pokemon)
   useEffect(() => {
     fetchData()
   }, []);
