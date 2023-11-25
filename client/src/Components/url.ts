@@ -1,0 +1,1 @@
+export const url = 'https://pokedex-omega-virid.vercel.app'
