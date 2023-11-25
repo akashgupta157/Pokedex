@@ -1,19 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import style from '../CSS/home.module.scss'
 import Loader from '../Components/Loader'
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { url } from '../Components/url';
+import { useEffect } from 'react';
 import { useTheme } from '../ContextAPI/ThemeContext';
+import { useData } from '../ContextAPI/DataContext';
 export default function Home() {
   const navigate = useNavigate()
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  async function fetchData() {
-    const { data } = await axios.get(`${url}/pokemon`)
-    setData(data)
-    setLoading(false)
-  }
+  const { isDarkMode } = useTheme();
+  const { data, loading, fetchData } = useData()
   useEffect(() => {
     fetchData()
   }, []);
@@ -21,7 +15,6 @@ export default function Home() {
     let result = number.toString().padStart(4, '0');
     return result;
   }
-  const { isDarkMode } = useTheme();
   return (
     <>
       {

@@ -9,6 +9,26 @@ router.get("/", async (req: any, res: any) => {
     res.status(500).json({ error });
   }
 });
+router.get("/search", async (req: any, res: any) => {
+  try {
+    const { query } = req.query;
+    const searchRegex = new RegExp(query, "i");
+    const searchResults = await pokemonModel.find({
+      $or: [
+        { name: searchRegex },
+        { types: { $in: [searchRegex] } },
+        { number: parseInt(query) || 0 },
+      ],
+    });
+    if (searchResults.length > 0) {
+      res.json(searchResults);
+    } else {
+      res.status(404).json({ error: "No matching Pokemon found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
 router.get("/:number", async (req: any, res: any) => {
   try {
     const pokemon = await pokemonModel.findOne({ number: req.params.number });
