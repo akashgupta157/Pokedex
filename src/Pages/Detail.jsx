@@ -20,9 +20,9 @@ export default function Detail() {
   return (
     <>
       {isLoading ? (
-        <div className="flex justify-center items-center mt-32">
+        <div className="flex justify-center items-center mt-10 md:mt-32">
           <div className="animate-spin">
-            <img src={pokeBall} alt="" className="w-28 h-28" />
+            <img src={pokeBall} alt="" className="w-20 md:w-28" />
           </div>
         </div>
       ) : (

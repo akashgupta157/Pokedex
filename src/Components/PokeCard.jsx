@@ -4,6 +4,7 @@ import shiny from "../assets/Shiny_Pok%3Fmon.webp";
 import pokeBall from "../assets/bg-pokeball.png";
 import { useNavigate } from "react-router";
 import { typeSymbols } from "../misc/misce";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 export default function PokeCard({ poke }) {
   const { typeColors } = useContext(PokeContext);
   const [currentImage, setCurrentImage] = useState(poke.image);
@@ -49,8 +50,10 @@ export default function PokeCard({ poke }) {
             ))}
           </div>
         </div>
-        <img
-          src={currentImage || pokeBall}
+        <LazyLoadImage
+          src={currentImage || poke.image}
+          width={600}
+          height={400}
           alt={poke.name}
           className={`object-contain w-44 md:w-56 ${
             currentImage ? "opacity-100" : "opacity-0"

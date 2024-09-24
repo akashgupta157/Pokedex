@@ -8,16 +8,25 @@ import { PokeProvider } from "./misc/PokeContext";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <>
+        <Header />
+        <Home />
+      </>
+    ),
   },
   {
     path: "/detail/:pokemon/:id",
-    element: <Detail />,
+    element: (
+      <>
+        <Header />
+        <Detail />
+      </>
+    ),
   },
 ]);
 createRoot(document.getElementById("root")).render(
   <PokeProvider>
-    <Header />
     <RouterProvider router={router} />
   </PokeProvider>
 );
