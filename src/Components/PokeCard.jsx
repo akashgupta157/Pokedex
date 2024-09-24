@@ -50,9 +50,11 @@ export default function PokeCard({ poke }) {
           </div>
         </div>
         <img
-          src={currentImage}
+          src={currentImage || pokeBall}
           alt={poke.name}
-          className="object-contain w-44 md:w-56"
+          className={`object-contain w-44 md:w-56 ${
+            currentImage ? "opacity-100" : "opacity-0"
+          }`}
         />
       </div>
     </div>

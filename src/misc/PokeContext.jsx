@@ -7,7 +7,7 @@ export function PokeProvider({ children }) {
   const baseApi = "https://pokeapi.co/api/v2";
   const [pokeList, setPokeList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [totalPokemon, setTotalPokemon] = useState(1302);
   const typeColors = {
     grass: "#78C850",
     fire: "#F08030",
@@ -41,7 +41,7 @@ export function PokeProvider({ children }) {
     if (id <= 1025) return 9;
   };
 
-  const getPokeList = async ({ limit, search, sort }) => {
+  const getPokeList = async ({ limit, search, sort, type }) => {
     setIsLoading(true);
     try {
       let pokeList = [];
@@ -57,9 +57,20 @@ export function PokeProvider({ children }) {
           generation: getGeneration(data.id),
         });
       } else {
-        const {
+        let {
           data: { results },
-        } = await axios.get(`${baseApi}/pokemon?limit=1025`);
+        } = await axios.get(`${baseApi}/pokemon?limit=1302`);
+        if (type) {
+          const {
+            data: { pokemon },
+          } = await axios.get(`${baseApi}/type/${type}`);
+          results = pokemon.map((p) => ({
+            name: p.pokemon.name,
+            url: p.pokemon.url,
+          }));
+          console.log(results);
+          setTotalPokemon(results.length);
+        }
         if (sort === "higher") {
           results.reverse();
         }
@@ -100,6 +111,7 @@ export function PokeProvider({ children }) {
         isLoading,
         typeColors,
         getPokeList,
+        totalPokemon,
       }}
     >
       {children}
