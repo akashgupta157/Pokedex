@@ -8,7 +8,7 @@ export default function Header() {
         <img
           src={image}
           alt="Pokemon logo"
-          className="object-contain m-auto md:h-[12vh] h-[8vh]"
+          className="object-contain m-auto md:h-[12vh] h-[8vh] cursor-pointer"
           onClick={() => navigate("/")}
         />
       </div>

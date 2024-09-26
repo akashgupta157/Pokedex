@@ -166,7 +166,7 @@ export default function Home() {
       </div>
       <div className="bg-[#e6e5f6]">
         <button
-          className="flex items-center gap-2 bg-[#473645] w-fit m-auto font-medium text-white px-10 md:px-20 py-1 [clip-path:polygon(0_0,100%_0%,90%_100%,10%_100%)]"
+          className="flex items-center gap-2 bg-[#473645] w-fit mx-auto font-medium text-white px-10 md:px-20 py-1 [clip-path:polygon(0_0,100%_0%,90%_100%,10%_100%)]"
           onClick={() => setIsDrawerOpen(!isDrawerOpen)}
         >
           {isDrawerOpen ? (
@@ -187,11 +187,24 @@ export default function Home() {
             <img
               src={pokeBall}
               alt="Loading..."
-              className="w-20 h-20 animate-spin"
+              className="w-16 md:w-20 animate-spin"
             />
           </div>
         ) : (
           <>
+            {!pokeList?.length && !isLoading && (
+              <div className="flex flex-col gap-2 justify-center items-center">
+                <h1 className="text-3xl font-bold text-center">
+                  No Pokemon Found
+                </h1>
+                <button
+                  className="text-white px-5 py-1 md:py-2 md:px-10 font-bold md:text-xl rounded bg-[#a5a4a5]"
+                  onClick={handleReset}
+                >
+                  Reset
+                </button>
+              </div>
+            )}
             <div className="grid grid-cols-1 gap-5 mx-5 md:mx-20 md:grid-cols-3">
               {pokeList?.map((poke) => (
                 <PokeCard key={poke.id} poke={poke} />
