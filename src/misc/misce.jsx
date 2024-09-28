@@ -128,3 +128,21 @@ export const fetchTypeEffectiveness = async (types) => {
     console.error("Error fetching type effectiveness:", error);
   }
 };
+export const fetchPokemonDetails = async (name) => {
+  try {
+    const { data } = await axios.get(
+      `https://pokeapi.co/api/v2/pokemon/${name}`
+    );
+    return {
+      id: data.id,
+      number: data.id.toString().padStart(4, "0"),
+      name: data.name,
+      image: data.sprites.other["official-artwork"].front_default,
+      shinyImage: data.sprites.other["official-artwork"].front_shiny,
+      type: data.types.map((type) => type.type.name),
+    };
+  } catch (error) {
+    console.error("Error fetching Pokémon details: ", error);
+    return null;
+  }
+};

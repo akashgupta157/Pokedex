@@ -7,6 +7,7 @@ import { PokeContext } from "../misc/PokeContext";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { EvolutionChainDisplay } from "../Components/EvolutionChainDisplay";
 import { TypeEffectivenessSection } from "../Components/TypeEffectivenessSection";
+import VarietyCard from "../Components/VarietyCard";
 export default function Detail() {
   const { typeColors } = useContext(PokeContext);
   const { id } = useParams();
@@ -79,7 +80,7 @@ export default function Detail() {
   useEffect(() => {
     fetchPokeDetails();
   }, [id]);
-  console.log(pokeDetails);
+
   return (
     <>
       {isLoading || !pokeDetails ? (
@@ -232,12 +233,34 @@ export default function Detail() {
             </div>
             <div>
               <h1 className="text-2xl md:text-3xl font-bold mt-5">
-                Evolution Chain
+                Evolutions
               </h1>
               <div className="flex">
                 <EvolutionChainDisplay chain={pokeDetails.evolutions} />
               </div>
             </div>
+            {pokeDetails.shinyImage && (
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold">Shiny</h1>
+                <LazyLoadImage
+                  src={pokeDetails.shinyImage}
+                  alt={pokeDetails.name}
+                  width={600}
+                  height={400}
+                  className="object-contain w-60 m-auto md:m-0 md:w-80"
+                />
+              </div>
+            )}
+            {pokeDetails.varieties.length > 0 && (
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold">Forms</h1>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-5 ">
+                  {pokeDetails.varieties.map((variety) => (
+                    <VarietyCard key={variety.name} varieties={variety} />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}

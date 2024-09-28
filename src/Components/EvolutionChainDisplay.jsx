@@ -1,28 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { typeSymbols } from "../misc/misce";
+import { fetchPokemonDetails, typeSymbols } from "../misc/misce";
 import { PokeContext } from "../misc/PokeContext";
 import { ChevronDown, ChevronRight } from "lucide-react";
 export const EvolutionChainDisplay = ({ chain }) => {
   const { typeColors } = useContext(PokeContext);
   const [pokemonDetails, setPokemonDetails] = useState(null);
-  const fetchPokemonDetails = async (name) => {
-    try {
-      const { data } = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${name}`
-      );
-      return {
-        id: data.id,
-        number: data.id.toString().padStart(4, "0"),
-        image: data.sprites.other["official-artwork"].front_default,
-        type: data.types.map((type) => type.type.name),
-      };
-    } catch (error) {
-      console.error("Error fetching Pokémon details: ", error);
-      return null;
-    }
-  };
   useEffect(() => {
     const getPokemonDetails = async () => {
       const details = await fetchPokemonDetails(chain.species.name);
