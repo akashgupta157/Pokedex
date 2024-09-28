@@ -18,7 +18,6 @@ export default function VarietyCard({ varieties }) {
       })
       .catch((err) => console.log(err));
   }, [varieties]);
-  console.log(pokeDetails);
   return (
     <div>
       {pokeDetails && (
