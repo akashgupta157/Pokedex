@@ -18,7 +18,7 @@ export const EvolutionChainDisplay = ({ chain }) => {
     <div className="w-full flex flex-col md:flex-row items-center justify-center my-2">
       <a
         className="flex flex-col items-center overflow-hidden"
-        href={`http://localhost:5173/detail/${chain.species.name}/${pokemonDetails.id}`}
+        href={`https://pokelistdex.vercel.app/detail/${chain.species.name}/${pokemonDetails.id}`}
       >
         <LazyLoadImage
           src={pokemonDetails.image}
