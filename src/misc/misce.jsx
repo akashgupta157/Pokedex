@@ -16,6 +16,7 @@ import dragon from "../assets/dragon.svg";
 import dark from "../assets/dark.svg";
 import steel from "../assets/steel.svg";
 import fairy from "../assets/fairy.svg";
+import axios from "axios";
 export const typeSymbols = (type) => {
   switch (type) {
     case "fire":
@@ -54,5 +55,76 @@ export const typeSymbols = (type) => {
       return fairy;
     default:
       return normal;
+  }
+};
+export const fetchTypeEffectiveness = async (types) => {
+  try {
+    const responses = await Promise.all(
+      types.map((type) => axios.get(`https://pokeapi.co/api/v2/type/${type}`))
+    );
+
+    const combinedDamageRelations = {
+      double_damage_from: [],
+      half_damage_from: [],
+      no_damage_from: [],
+    };
+
+    responses.forEach((response) => {
+      const damageRelations = response.data.damage_relations;
+      combinedDamageRelations.double_damage_from.push(
+        ...damageRelations.double_damage_from.map((t) => t.name)
+      );
+      combinedDamageRelations.half_damage_from.push(
+        ...damageRelations.half_damage_from.map((t) => t.name)
+      );
+      combinedDamageRelations.no_damage_from.push(
+        ...damageRelations.no_damage_from.map((t) => t.name)
+      );
+    });
+
+    const damageMultipliers = {};
+    const applyMultiplier = (type, multiplier) => {
+      if (damageMultipliers[type]) {
+        damageMultipliers[type] *= multiplier;
+      } else {
+        damageMultipliers[type] = multiplier;
+      }
+    };
+
+    combinedDamageRelations.double_damage_from.forEach((type) =>
+      applyMultiplier(type, 2)
+    );
+    combinedDamageRelations.half_damage_from.forEach((type) =>
+      applyMultiplier(type, 0.5)
+    );
+    combinedDamageRelations.no_damage_from.forEach((type) =>
+      applyMultiplier(type, 0)
+    );
+
+    const strongWeaknesses = [];
+    const weaknesses = [];
+    const resistances = [];
+    const strongResistances = [];
+
+    Object.entries(damageMultipliers).forEach(([type, multiplier]) => {
+      if (multiplier === 4) {
+        strongWeaknesses.push(type);
+      } else if (multiplier === 2) {
+        weaknesses.push(type);
+      } else if (multiplier === 0.5) {
+        resistances.push(type);
+      } else if (multiplier === 0.25) {
+        strongResistances.push(type);
+      }
+    });
+
+    return {
+      strongWeaknesses,
+      weaknesses,
+      resistances,
+      strongResistances,
+    };
+  } catch (error) {
+    console.error("Error fetching type effectiveness:", error);
   }
 };

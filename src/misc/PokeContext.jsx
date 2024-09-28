@@ -78,7 +78,7 @@ export function PokeProvider({ children }) {
       } else {
         let {
           data: { results: allPokemon },
-        } = await axios.get(`${baseApi}/pokemon?limit=1302`);
+        } = await axios.get(`${baseApi}/pokemon?limit=1025`);
 
         if (type) {
           const {

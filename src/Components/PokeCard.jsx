@@ -14,7 +14,7 @@ export default function PokeCard({ poke }) {
     <div
       className={`relative md:px-5 p-2 transition-all bg-white rounded-lg cursor-pointer md:hover:scale-105 md:hover:shadow-2xl`}
       onClick={() =>
-        navigate(`/detail/${poke.name}/${poke.id}`, { state: poke })
+        navigate(`/detail/${poke.name}/${poke.id}`)
       }
       style={{
         background: bgTypeColors[poke.type[0]] || "#ffffff",
