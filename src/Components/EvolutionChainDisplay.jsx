@@ -34,7 +34,7 @@ export const EvolutionChainDisplay = ({ chain }) => {
   return (
     <div className="w-full flex flex-col md:flex-row items-center justify-center my-2">
       <a
-        className="flex flex-col items-center"
+        className="flex flex-col items-center overflow-hidden"
         href={`http://localhost:5173/detail/${chain.species.name}/${pokemonDetails.id}`}
       >
         <LazyLoadImage

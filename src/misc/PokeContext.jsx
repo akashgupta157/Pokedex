@@ -63,7 +63,7 @@ export function PokeProvider({ children }) {
 
       if (search) {
         try {
-          const { data } = await axios.get(`${baseApi}/pokemon/${search}`);
+          const { data } = await axios.get(`${baseApi}/pokemon/${search.toLowerCase()}`);
           pokeList.push({
             id: data.id,
             name: data.name,
