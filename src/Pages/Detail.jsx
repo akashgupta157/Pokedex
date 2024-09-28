@@ -15,7 +15,7 @@ export default function Detail() {
   const [pokeDetails, setPokeDetails] = useState();
   const fetchPokeDetails = async () => {
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       const [{ data: pokemonData }, { data: speciesData }] = await Promise.all([
         axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`),
         axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`),
