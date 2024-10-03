@@ -67,6 +67,7 @@ export default function Home() {
   return (
     <>
       <div className="bg-[#473645] px-5 py-2 md:px-20 md:py-3">
+        <div className="max-w-[1280px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between md:items-center gap-3">
           <form
             action=""
@@ -163,6 +164,7 @@ export default function Home() {
             </button>
           </div>
         </div>
+        </div>
       </div>
       <div className="bg-[#e6e5f6]">
         <button
@@ -181,7 +183,7 @@ export default function Home() {
           )}
         </button>
       </div>
-      <div className="bg-[#e6e5f6] py-5 md:py-10 min-h-[90vh] md:min-h-[85vh]">
+      <div className="bg-[#e6e5f6] py-5 md:py-10 min-h-[90vh] md:min-h-[85vh] max-w-[1280px] mx-auto">
         {isLoading && !wholeLoading ? (
           <div className="flex items-center justify-center">
             <img

@@ -11,7 +11,9 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <Home />
+        <div className="bg-[#e6e5f6]">
+          <Home />
+        </div>
       </>
     ),
   },

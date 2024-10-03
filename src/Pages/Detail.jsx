@@ -90,7 +90,7 @@ export default function Detail() {
           </div>
         </div>
       ) : (
-        <div className="mx-5 my-3 md:mx-40 md:my-5">
+        <div className="my-3 md:mx-40 md:my-5 max-w-[1280px] mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold flex items-end gap-2 md:gap-4 capitalize">
             {pokeDetails.name}
             <p className="text-gray-500 text-2xl md:text-3xl">
