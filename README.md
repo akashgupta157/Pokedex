@@ -71,10 +71,10 @@ This will start the application on `http://localhost:5173`.
 ## Screenshots
 
 ### Home Page
-[Insert screenshot here]
+![pokedex-cef26f64](https://github.com/user-attachments/assets/b1c20e17-ec8d-43bc-89ec-c648ddd52025)
 
 ### Pokémon Detail Page
-[Insert screenshot here]
+![Screenshot 2024-10-11 212629](https://github.com/user-attachments/assets/0fb7ac32-03a4-45de-94f7-b214a88e83e5)
 
 ## Contributing
 
