@@ -8,3 +8,6 @@
   box-sizing: border-box;
   font-family: "Nunito", sans-serif;
 }
+.stat-bar {
+  transition: width 1s ease-in-out;
+}

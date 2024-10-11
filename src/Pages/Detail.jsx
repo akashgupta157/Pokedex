@@ -8,6 +8,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { EvolutionChainDisplay } from "../Components/EvolutionChainDisplay";
 import { TypeEffectivenessSection } from "../Components/TypeEffectivenessSection";
 import VarietyCard from "../Components/VarietyCard";
+import BaseStats from "../Components/BaseStats";
 export default function Detail() {
   const { typeColors } = useContext(PokeContext);
   const { id } = useParams();
@@ -90,7 +91,7 @@ export default function Detail() {
           </div>
         </div>
       ) : (
-        <div className="my-3 md:mx-40 md:my-5 max-w-[1280px] mx-auto">
+        <div className="my-3 md:mx-40 md:my-5 max-w-[1280px] mx-auto overflow-hidden">
           <h1 className="text-3xl md:text-4xl font-bold flex items-end gap-2 md:gap-4 capitalize">
             {pokeDetails.name}
             <p className="text-gray-500 text-2xl md:text-3xl">
@@ -176,36 +177,7 @@ export default function Detail() {
             </div>
             <div className="mt-5 w-full flex flex-col md:flex-row justify-between gap-5 md:gap-10">
               <div className="md:w-1/2">
-                <h1 className="text-2xl md:text-3xl font-bold">Base Stats</h1>
-                <div className="flex flex-col gap-2 md:gap-5">
-                  {pokeDetails.stats.map((stat, i) => (
-                    <div key={i} className="flex flex-col gap-1">
-                      <div className="flex justify-between items-center">
-                        <p
-                          className="text-sm md:text-base capitalize"
-                          style={{
-                            textTransform: `${
-                              stat.name === "hp" && "uppercase"
-                            }`,
-                          }}
-                        >
-                          {stat.name.split("-").join(" ")}
-                        </p>
-                        <p className="text-sm md:text-base">{stat.base_stat}</p>
-                      </div>
-                      <div className="w-full h-4 rounded-lg bg-slate-300">
-                        <div
-                          className={`h-full rounded-lg ${
-                            i % 2 === 0 ? "bg-red-500" : "bg-blue-500"
-                          }`}
-                          style={{
-                            width: `${(stat.base_stat / 255) * 100}%`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <BaseStats stats={pokeDetails.stats} />
               </div>
               <div className="md:w-1/2 ">
                 <h1 className="text-2xl md:text-3xl font-bold">
