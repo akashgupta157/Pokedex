@@ -55,31 +55,48 @@ export function PokeProvider({ children }) {
     }),
     []
   );
+  let allPokemonList = [];
   const getPokeList = async ({ limit, search, sort, type, gen }) => {
     setIsLoading(true);
     try {
       let pokeList = [];
       let results = [];
 
-      if (search) {
-        try {
-          const { data } = await axios.get(`${baseApi}/pokemon/${search.toLowerCase()}`);
-          pokeList.push({
+      if (allPokemonList.length === 0) {
+        let {
+          data: { results: allPokemon },
+        } = await axios.get(`${baseApi}/pokemon?limit=1025`);
+        allPokemonList = allPokemon;
+      }
+
+      if (search && search.length >= 3) {
+        results = allPokemonList.filter((pokemon) =>
+          pokemon.name.toLowerCase().includes(search.toLowerCase())
+        );
+
+        if (results.length === 0) {
+          setPokeList([]);
+          setIsLoading(false);
+          return;
+        }
+        const pokeRequests = results
+          .slice(0, limit)
+          .map((pokemon) =>
+            axios.get(`${baseApi}/pokemon/${pokemon.name}`).catch(() => null)
+          );
+        const responses = await Promise.all(pokeRequests);
+
+        pokeList = responses
+          .filter((response) => response && response.data)
+          .map(({ data }) => ({
             id: data.id,
             name: data.name,
             type: data.types.map((type) => type.type.name),
             number: data.id.toString().padStart(4, "0"),
             image: data.sprites.other["official-artwork"].front_default,
             shinyImage: data.sprites.other["official-artwork"].front_shiny,
-          });
-        } catch (error) {
-          pokeList = [];
-        }
+          }));
       } else {
-        let {
-          data: { results: allPokemon },
-        } = await axios.get(`${baseApi}/pokemon?limit=1025`);
-
         if (type) {
           const {
             data: { pokemon },
@@ -87,7 +104,7 @@ export function PokeProvider({ children }) {
           results = pokemon.map((p) => ({ name: p.pokemon.name }));
           setTotalPokemon(results.length);
         } else {
-          results = allPokemon;
+          results = allPokemonList;
         }
 
         if (gen) {
