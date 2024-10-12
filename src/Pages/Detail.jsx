@@ -9,6 +9,7 @@ import { EvolutionChainDisplay } from "../Components/EvolutionChainDisplay";
 import { TypeEffectivenessSection } from "../Components/TypeEffectivenessSection";
 import VarietyCard from "../Components/VarietyCard";
 import BaseStats from "../Components/BaseStats";
+import PokedexTable from "../Components/PokedexTable";
 export default function Detail() {
   const { typeColors } = useContext(PokeContext);
   const { id } = useParams();
@@ -91,7 +92,7 @@ export default function Detail() {
           </div>
         </div>
       ) : (
-        <div className="my-3 md:mx-40 md:my-5 max-w-[1280px] mx-auto overflow-hidden">
+        <div className="m-3 md:mx-40 md:my-5 max-w-[1280px] overflow-hidden">
           <h1 className="text-3xl md:text-4xl font-bold flex items-end gap-2 md:gap-4 capitalize">
             {pokeDetails.name}
             <p className="text-gray-500 text-2xl md:text-3xl">
@@ -233,6 +234,12 @@ export default function Detail() {
                 </div>
               </div>
             )}
+            <div className="my-5">
+              <h1 className="text-2xl md:text-3xl font-bold">
+                Pokédex entries
+              </h1>
+              <PokedexTable entries={pokeDetails.flavor_text} />
+            </div>
           </div>
         </div>
       )}
